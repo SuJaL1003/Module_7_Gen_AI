@@ -21,7 +21,10 @@ def generate_sql_query(prompt):
 
     try:
 
-        response = model.generate_content(prompt)
+       response = client.models.generate_content(
+                model="gemini-3.5-flash",
+                contents=prompt
+            )
 
         if not response.text:
             return "ERROR: Empty response from Gemini"
@@ -43,3 +46,7 @@ def generate_sql_query(prompt):
     except Exception as e:
 
         return f"ERROR: {str(e)}"
+
+
+
+
