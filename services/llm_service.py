@@ -16,6 +16,7 @@ genai.configure(
 # )
 
 
+
 # GENERATE SQL USING GEMINI
 def generate_sql_query(prompt):
 
