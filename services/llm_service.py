@@ -55,4 +55,4 @@ def generate_sql_query(prompt):
 
             time.sleep(5)
 
-    return None
+    return f"ERROR: Gemini failed after {max_retries} attempts"
