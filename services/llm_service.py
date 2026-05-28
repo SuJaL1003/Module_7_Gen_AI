@@ -1,7 +1,6 @@
 import google.generativeai as genai
 from dotenv import load_dotenv
 import os
-import time
 
 # LOAD ENV VARIABLES
 load_dotenv()
@@ -20,39 +19,29 @@ model = genai.GenerativeModel(
 # GENERATE SQL USING GEMINI
 def generate_sql_query(prompt):
 
-    max_retries = 3
+    try:
 
-    for attempt in range(max_retries):
+        response = model.generate_content(prompt)
 
-        try:
+        print("FULL RESPONSE:", response)
 
-            response = model.generate_content(prompt)
+        if not response.text:
+            return "ERROR: Empty response from Gemini"
 
-            # DEBUG PRINT
-            print("FULL RESPONSE:", response)
+        generated_sql = response.text.strip()
 
-            generated_sql = response.text.strip()
+        generated_sql = generated_sql.replace(
+            "```sql", ""
+        )
 
-            # CLEAN SQL OUTPUT
-            generated_sql = generated_sql.replace(
-                "```sql", ""
-            )
+        generated_sql = generated_sql.replace(
+            "```", ""
+        )
 
-            generated_sql = generated_sql.replace(
-                "```", ""
-            )
+        generated_sql = generated_sql.strip()
 
-            generated_sql = generated_sql.strip()
+        return generated_sql
 
-            print("GENERATED SQL:", generated_sql)
+    except Exception as e:
 
-            return generated_sql
-
-        except Exception as e:
-
-            print(f"\nAttempt {attempt + 1} failed")
-            print("ERROR:", str(e))
-
-            time.sleep(5)
-
-    return f"ERROR: Gemini failed after {max_retries} attempts"
+        return f"ERROR: {str(e)}"
