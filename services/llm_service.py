@@ -1,50 +1,42 @@
-````python
-import google.generativeai as genai
+from google import genai
 from dotenv import load_dotenv
 import os
+import time
 
-# LOAD ENV VARIABLES
+
 load_dotenv()
 
-# CONFIGURE GEMINI API
-genai.configure(
+client = genai.Client(
     api_key=os.getenv("GEMINI_API_KEY")
 )
-
-# LOAD MODEL
-# model = genai.GenerativeModel(
-#     "gemini-2.5-flash-lite"
-# )
 
 
 # GENERATE SQL USING GEMINI
 def generate_sql_query(prompt):
 
-    try:
+    max_retries = 3
 
-        response = client.models.generate_content(
-            model="gemini-2.5-flash-lite",
-            contents=prompt
-        )
+    for attempt in range(max_retries):
 
-        if not response.text:
-            return "ERROR: Empty response from Gemini"
+        try:
+            response = client.models.generate_content(
+                model="gemini-2.5-flash-lite",
+                contents=prompt
+            )
 
-        generated_sql = response.text.strip()
+            generated_sql = response.text.strip()
 
-        generated_sql = generated_sql.replace(
-            "```sql", ""
-        )
+            generated_sql = generated_sql.replace("```sql", "")
+            generated_sql = generated_sql.replace("```", "")
+            generated_sql = generated_sql.strip()
 
-        generated_sql = generated_sql.replace(
-            "```", ""
-        )
+            return generated_sql
 
-        generated_sql = generated_sql.strip()
+        except Exception as e:
 
-        return generated_sql
+            print(f"\nAttempt {attempt + 1} failed:")
+            print(e)
 
-    except Exception as e:
+            time.sleep(5)
 
-        return f"ERROR: {str(e)}"
-````
+    return None
