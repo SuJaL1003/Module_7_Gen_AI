@@ -12,7 +12,7 @@ genai.configure(
 
 # LOAD MODEL
 model = genai.GenerativeModel(
-    "gemini-1.5-flash"
+    "gemini-1.5-pro"
 )
 
 
@@ -22,8 +22,6 @@ def generate_sql_query(prompt):
     try:
 
         response = model.generate_content(prompt)
-
-        print("FULL RESPONSE:", response)
 
         if not response.text:
             return "ERROR: Empty response from Gemini"
