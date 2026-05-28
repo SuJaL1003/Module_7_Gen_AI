@@ -13,7 +13,7 @@ genai.configure(
 
 # LOAD MODEL
 model = genai.GenerativeModel(
-    "gemini-pro"
+    "gemini-2.5-flash"
 )
 
 # GENERATE SQL USING GEMINI
