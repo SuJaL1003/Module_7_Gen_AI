@@ -1,4 +1,4 @@
-```txt id="lh0l8d"
+
 altair==6.1.0
 annotated-types==0.7.0
 anyio==4.13.0
@@ -83,4 +83,4 @@ watchdog==6.0.0
 websockets==16.0
 Werkzeug==3.1.8
 xlsxwriter==3.2.9
-```
+
