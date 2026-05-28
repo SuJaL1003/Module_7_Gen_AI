@@ -1,9 +1,24 @@
 import streamlit as st
+import os
 
 from prompts.sql_prompt import generate_sql_prompt
 from services.llm_service import generate_sql_query
 from services.sql_validator import validate_sql_query
 from services.sql_executor import execute_sql_query
+
+
+# DEBUGGING
+st.write("Current Working Directory:")
+st.write(os.getcwd())
+
+st.write("Files/Folders:")
+st.write(os.listdir())
+
+st.write("Database Exists:")
+st.write(os.path.exists("database/sales_database.db"))
+
+st.write("Gemini Key:")
+st.write(os.getenv("GEMINI_API_KEY"))
 
 
 # PAGE TITLE
