@@ -1,3 +1,4 @@
+````python
 import google.generativeai as genai
 from dotenv import load_dotenv
 import os
@@ -16,16 +17,15 @@ genai.configure(
 # )
 
 
-
 # GENERATE SQL USING GEMINI
 def generate_sql_query(prompt):
 
     try:
 
-       response = client.models.generate_content(
-                model="gemini-2.5-flash-lite",
-                contents=prompt
-            )
+        response = client.models.generate_content(
+            model="gemini-2.5-flash-lite",
+            contents=prompt
+        )
 
         if not response.text:
             return "ERROR: Empty response from Gemini"
@@ -47,7 +47,4 @@ def generate_sql_query(prompt):
     except Exception as e:
 
         return f"ERROR: {str(e)}"
-
-
-
-
+````
