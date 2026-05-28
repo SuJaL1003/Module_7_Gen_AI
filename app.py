@@ -47,8 +47,8 @@ if st.button("Generate SQL Query"):
         # GENERATE SQL
         generated_sql = generate_sql_query(prompt)
 
-        if not generated_sql:
-            st.error("Failed to generate SQL query.")
+        if not generated_sql or generated_sql.startswith("ERROR"):
+            st.error(generated_sql)
 
         else:
             # Display generated SQL
