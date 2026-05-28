@@ -11,9 +11,9 @@ genai.configure(
 )
 
 # LOAD MODEL
-model = genai.GenerativeModel(
-    "gemini-1.5-pro"
-)
+# model = genai.GenerativeModel(
+#     "gemini-2.5-flash-lite"
+# )
 
 
 # GENERATE SQL USING GEMINI
@@ -22,7 +22,7 @@ def generate_sql_query(prompt):
     try:
 
        response = client.models.generate_content(
-                model="gemini-3.5-flash",
+                model="gemini-2.5-flash-lite",
                 contents=prompt
             )
 
